@@ -1,13 +1,13 @@
-CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -i=libxt/include
-LIBF_ALL  = -n -q
-LDF_ALL   = option quiet libpath "${WATCOM}/lib286;${WATCOM}/lib286/dos" format dos
+CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -ox -fpi87 -ms -i=libxt/include
+LIBF_ALL  = -q -n
+LDF_ALL   = -q -bcl=dos -lr clibs.lib
 
 CC        = wcc
 LIB       = wlib
-LD        = wlink
+LD        = wcl
 COMP      = $(CC) $(CF_ALL) $(CF_TGT) -ad=$(patsubst %.c,%.d,$<) $< -fo=$@
 MKLIB     = $(LIB) $(LIBF_ALL) $(LIBF_TGT) $@ $(patsubst %,+%,$^)
-LINK      = $(LD) $(LDF_ALL) name $@ file { $^ }
+LINK      = $(LD) $(LDF_ALL) -fe=$@ $^
 
 d         = .
 dir       = .

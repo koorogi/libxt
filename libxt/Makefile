@@ -1,5 +1,5 @@
-CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -i=include
-LIBF_ALL  = -n -q
+CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -ox -fpi87 -ms -i=libxt/include
+LIBF_ALL  = -q -n
 
 CC        = wcc
 LIB       = wlib
