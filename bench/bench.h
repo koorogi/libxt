@@ -16,6 +16,8 @@ extern const Benchmark bench_hercules_clear;
 extern const Benchmark bench_hercules_clear2;
 extern const Benchmark bench_hercules_clear3;
 extern const Benchmark bench_hercules_clear4;
+extern const Benchmark bench_hercules_hlines_short;
+extern const Benchmark bench_hercules_hlines_long;
 extern const Benchmark bench_hercules_vsync;
 
 #endif

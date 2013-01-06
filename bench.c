@@ -97,6 +97,9 @@ static const Benchmark *benchmarks[] = {
     &bench_hercules_clear3,
     &bench_hercules_clear4,
     &separator,
+    &bench_hercules_hlines_short,
+    &bench_hercules_hlines_long,
+    &separator,
     &bench_hercules_vsync,
     NULL
 };
