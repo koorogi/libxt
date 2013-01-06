@@ -34,6 +34,8 @@ static inline void xt_hercules_lightpen_set(_Bool value) {
 #define XT_HERCULES_STATUS_CARD_ID(status)  (((status) & 0x70) >> 4)
 #define XT_HERCULES_STATUS_LIGHTPEN(status) ( (status) & 0x02)
 
+void xt_hercules_wait_vsync(void);
+
 typedef enum {
     XtHerculesCard_None            = -1,
     XtHerculesCard_Hercules        =  0,

@@ -12,6 +12,7 @@ typedef struct {
 } Benchmark;
 
 extern const Benchmark bench_nop;
+extern const Benchmark bench_hercules_vsync;
 
 #endif
 

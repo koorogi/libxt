@@ -103,3 +103,8 @@ void xt_hercules_mode_set(XtHerculesMode mode) {
     xt_mda_modereg_write(ctrl | XT_MDA_MODE_ENABLE_VIDEO);
 }
 
+void xt_hercules_wait_vsync(void) {
+    while ( XT_HERCULES_STATUS_VSYNC(inp(XT_MDA_PORT_STATUS))) { }
+    while (!XT_HERCULES_STATUS_VSYNC(inp(XT_MDA_PORT_STATUS))) { }
+}
+

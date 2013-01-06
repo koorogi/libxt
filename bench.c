@@ -85,8 +85,14 @@ static uint16_t parse_seconds(const char *arg) {
     return (uint16_t) parsed;
 }
 
+static const Benchmark separator = {
+    { NULL, NULL }, NULL, NULL, NULL
+};
+
 static const Benchmark *benchmarks[] = {
     &bench_nop,
+    &separator,
+    &bench_hercules_vsync,
     NULL
 };
 

@@ -21,6 +21,7 @@ CLEAN           := $(CLEAN)   $(TGT_BIN_$(d)) $(OBJS_$(d)) $(DEPS_$(d))
 
 # local rules
 $(d)/bench.exe:    $(d)/libxt/xt.lib              \
+                   bench/hercules.o               \
                    bench/nop.o                    \
 
 $(d)/hercules.exe: $(d)/libxt/xt.lib              \
