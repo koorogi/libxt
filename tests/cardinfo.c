@@ -2,7 +2,7 @@
 
 #include <video/hercules.h>
 
-#include "hercules.h"
+#include "tests.h"
 
 static void cardinfo(void) {
     const char *cardname;
@@ -33,7 +33,7 @@ static void cardinfo(void) {
     printf("Hercules Card: %s\n", cardname);
 }
 
-const HerculesCommand cmd_cardinfo = {
+const TestCase test_cardinfo = {
     { "cardinfo", "Information about installed graphics card" },
     cardinfo,
 };

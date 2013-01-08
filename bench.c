@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <dos.h>
 
-#include "bench/bench.h"
+#include "tests/tests.h"
 
 #define TIMER_INTR      0x1c
 

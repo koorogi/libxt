@@ -3,10 +3,13 @@ dirstack_$(sp) := $(d)
 d              := $(dir)
 
 # local variables
-OBJS_ASM_$(d)   := $(d)/hercules_asm.o            \
+OBJS_ASM_$(d)   := $(d)/clear2.o                  \
 
 OBJS_$(d)       := $(OBJS_ASM_$(d))               \
-                   $(d)/hercules.o                \
+                   $(d)/cardinfo.o                \
+                   $(d)/clear.o                   \
+                   $(d)/helpers.o                 \
+                   $(d)/lines.o                   \
                    $(d)/nop.o                     \
 
 DEPS_$(d)       := $(OBJS_$(d):%.o=%.d)

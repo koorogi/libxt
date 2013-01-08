@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "bench.h"
+#include "tests.h"
 
 static void nop(void) {}
 

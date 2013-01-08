@@ -20,5 +20,14 @@ extern const Benchmark bench_hercules_hlines_short;
 extern const Benchmark bench_hercules_hlines_long;
 extern const Benchmark bench_hercules_vsync;
 
+typedef struct {
+    XtCommand command;
+    void (*test)(void);
+} TestCase;
+
+extern const TestCase test_cardinfo;
+extern const TestCase test_hlines;
+extern const TestCase test_vlines;
+
 #endif
 
