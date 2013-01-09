@@ -8,6 +8,7 @@ OBJS_ASM_$(d)   := $(d)/clear2.o                  \
 OBJS_$(d)       := $(OBJS_ASM_$(d))               \
                    $(d)/cardinfo.o                \
                    $(d)/clear.o                   \
+                   $(d)/cube.o                    \
                    $(d)/helpers.o                 \
                    $(d)/lines.o                   \
                    $(d)/nop.o                     \

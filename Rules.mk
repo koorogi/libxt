@@ -26,5 +26,6 @@ $(d)/bench.exe:    $(d)/libxt/xt.lib              \
 
 $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/cardinfo.o               \
+                   tests/cube.o                   \
                    tests/helpers.o                \
                    tests/lines.o                  \

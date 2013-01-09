@@ -27,6 +27,7 @@ typedef struct {
 } TestCase;
 
 extern const TestCase test_cardinfo;
+extern const TestCase test_cube;
 extern const TestCase test_alines;
 extern const TestCase test_hlines;
 extern const TestCase test_vlines;

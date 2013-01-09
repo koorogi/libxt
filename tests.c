@@ -15,6 +15,8 @@ static const TestCase *test_cases[] = {
     &test_alines,
     &test_hlines,
     &test_vlines,
+    &separator,
+    &test_cube,
     NULL
 };
 
