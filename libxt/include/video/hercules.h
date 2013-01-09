@@ -29,6 +29,10 @@ static inline void xt_hercules_lightpen_set(_Bool value) {
 #define XT_HERCULES_MODE_TEXT               0x00
 #define XT_HERCULES_MODE_GRAPHICS           0x02
 
+int xt_hercules_page_get(void);
+void xt_hercules_page_set(int page);
+void xt_hercules_page_swap(void);
+
 /* additional bits that can be read from MDA_PORT_STATUS */
 #define XT_HERCULES_STATUS_VSYNC(status)    !((status) & 0x80)
 #define XT_HERCULES_STATUS_CARD_ID(status)  (((status) & 0x70) >> 4)

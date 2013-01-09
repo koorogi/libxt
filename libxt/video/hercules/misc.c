@@ -12,6 +12,9 @@
                             OFFSET(rowdiv4) + 0x4000,   \
                             OFFSET(rowdiv4) + 0x6000
 
+/* mode register is write-only, so we must track its value ourselves */
+static uint8_t modereg = XT_HERCULES_MODE_TEXT | XT_MDA_MODE_BLINK | XT_MDA_MODE_ENABLE_VIDEO;
+
 const xt_hercules_fb_row_offset[348] = {
     FB_ROW( 0), FB_ROW( 1), FB_ROW( 2), FB_ROW( 3), FB_ROW( 4),
     FB_ROW( 5), FB_ROW( 6), FB_ROW( 7), FB_ROW( 8), FB_ROW( 9),
@@ -80,15 +83,13 @@ static uint8_t crtc_mode_data[XtHerculesMode_Count][12] = {
 
 /* TODO: expand this to support 90 column text, and different text heights */
 void xt_hercules_mode_set(XtHerculesMode mode) {
-    uint8_t ctrl;
-
     switch (mode) {
     case XtHerculesMode_Text:
-        ctrl = XT_HERCULES_MODE_TEXT | XT_MDA_MODE_BLINK;
+        modereg = XT_HERCULES_MODE_TEXT | XT_MDA_MODE_BLINK;
         break;
 
     case XtHerculesMode_Graphics:
-        ctrl = XT_HERCULES_MODE_GRAPHICS | XT_HERCULES_MODE_GRAPHICS_PAGE(0);
+        modereg = XT_HERCULES_MODE_GRAPHICS | XT_HERCULES_MODE_GRAPHICS_PAGE(0);
         break;
 
     default:
@@ -96,15 +97,31 @@ void xt_hercules_mode_set(XtHerculesMode mode) {
     }
 
     outp(XT_HERCULES_PORT_GRAPHICS, XT_HERCULES_GRAPHICS_ENABLE_PAGE0 | XT_HERCULES_GRAPHICS_ENABLE_PAGE1);
-    xt_mda_modereg_write(ctrl);
+    xt_mda_modereg_write(modereg);
     for (int reg = 0; reg < 12; reg++) {
         xt_crtc6845_reg_write(reg, crtc_mode_data[mode][reg]);
     }
-    xt_mda_modereg_write(ctrl | XT_MDA_MODE_ENABLE_VIDEO);
+    modereg |= XT_MDA_MODE_ENABLE_VIDEO;
+    xt_mda_modereg_write(modereg);
 }
 
 void xt_hercules_wait_vsync(void) {
     while ( XT_HERCULES_STATUS_VSYNC(inp(XT_MDA_PORT_STATUS))) { }
     while (!XT_HERCULES_STATUS_VSYNC(inp(XT_MDA_PORT_STATUS))) { }
+}
+
+int xt_hercules_page_get(void) {
+    return modereg & XT_HERCULES_MODE_GRAPHICS_PAGE(1) ? 1 : 0;
+}
+
+void xt_hercules_page_set(int page) {
+    modereg &= ~XT_HERCULES_MODE_GRAPHICS_PAGE(1);
+    modereg |=  XT_HERCULES_MODE_GRAPHICS_PAGE(page);
+    xt_mda_modereg_write(modereg);
+}
+
+void xt_hercules_page_swap(void) {
+    modereg ^= XT_HERCULES_MODE_GRAPHICS_PAGE(1);
+    xt_mda_modereg_write(modereg);
 }
 
