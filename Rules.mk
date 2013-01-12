@@ -5,12 +5,17 @@ include $(dir)/Rules.mk
 dir := $(d)/tests
 include $(dir)/Rules.mk
 
+dir := $(d)/unittest
+include $(dir)/Rules.mk
+
 # local variables
 TGT_BIN_$(d)    := $(d)/bench.exe                 \
                    $(d)/tests.exe                 \
+                   $(d)/unittest.exe              \
 
 OBJS_$(d)       := $(d)/bench.o                   \
                    $(d)/tests.o                   \
+                   $(d)/unittest.o                \
 
 DEPS_$(d)       := $(OBJS_$(d):%.o=%.d)
 TGT_BIN         := $(TGT_BIN) $(TGT_BIN_$(d))
@@ -29,3 +34,7 @@ $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/cube.o                   \
                    tests/helpers.o                \
                    tests/lines.o                  \
+
+$(d)/unittest.exe: $(d)/libxt/xt.lib              \
+                   unittest/fixedpoint.o          \
+                   unittest/unittest.o            \
