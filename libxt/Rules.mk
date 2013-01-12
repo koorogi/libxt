@@ -6,6 +6,9 @@ d              := $(dir)
 dir := $(d)/video
 include $(dir)/Rules.mk
 
+dir := $(d)/math
+include $(dir)/Rules.mk
+
 # local variables
 OBJS_$(d)      := $(d)/cmdline.o                         \
 
@@ -19,6 +22,7 @@ CLEAN          := $(CLEAN)   $(TGT_LIB_$(d)) $(OBJS_$(d)) $(DEPS_$(d))
 $(d)/xt.lib:      $(d)/video/hercules/misc.o             \
                   $(d)/video/hercules/rect.o             \
                   $(d)/video/hercules/line.o             \
+                  $(d)/math/fixedpoint.o                 \
                   $(d)/cmdline.o                         \
 
 -include $(DEPS_$(d))
