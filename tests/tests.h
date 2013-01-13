@@ -19,6 +19,7 @@ extern const Benchmark bench_hercules_clear4;
 extern const Benchmark bench_hercules_alines;
 extern const Benchmark bench_hercules_hlines_short;
 extern const Benchmark bench_hercules_hlines_long;
+extern const Benchmark bench_hercules_cube;
 extern const Benchmark bench_hercules_vsync;
 extern const Benchmark bench_quat_conj;
 extern const Benchmark bench_quat_conj2;

@@ -25,6 +25,7 @@ CLEAN           := $(CLEAN)   $(TGT_BIN_$(d)) $(OBJS_$(d)) $(DEPS_$(d))
 $(d)/bench.exe:    $(d)/libxt/xt.lib              \
                    tests/clear.o                  \
                    tests/clear2.o                 \
+                   tests/cube.o                   \
                    tests/helpers.o                \
                    tests/lines.o                  \
                    tests/nop.o                    \
