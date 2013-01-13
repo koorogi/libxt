@@ -7,6 +7,7 @@ d              := $(dir)
 # local variables
 OBJS_$(d) := $(d)/fixedpoint.o       \
              $(d)/quaternion.o       \
+             $(d)/quaternion2.o      \
 
 DEPS_$(d) := $(OBJS_$(d):%.o=%.d)
 CLEAN     := $(CLEAN) $(OBJS_$(d)) $(DEPS_$(d))

@@ -11,13 +11,6 @@ XtQuaternion xt_quat_mult(XtQuaternion q1, XtQuaternion q2) {
     return ret;
 }
 
-XtQuaternion xt_quat_conj(XtQuaternion q) {
-    q.x = -q.x;
-    q.y = -q.y;
-    q.z = -q.z;
-    return q;
-}
-
 XtVector3 xt_quat_rotate_vect(XtQuaternion rotate, XtVector3 v) {
     XtQuaternion tmp;
     tmp.w = 0;
