@@ -13,7 +13,7 @@ volatile XtFixed8 killoptim;
 /* square root */
 
 /* assembly implementations */
-XtFixed8 sqrt_6389443(XtFixed8);
+XtFixed8 sqrt_turkowski(XtFixed8);
 
 #define TEST(name,fn,min,max)                                       \
     static void printtbl_sqrt_ ## name(void) {                      \
@@ -39,5 +39,6 @@ XtFixed8 sqrt_6389443(XtFixed8);
 
 #define SQRT(name,fn)   TEST(name,fn,0,0x8000)
 
-SQRT(libxt,   xt_fixed_sqrt)
+SQRT(libxt,     xt_fixed_sqrt)
+SQRT(turkowski, sqrt_turkowski)
 

@@ -27,6 +27,7 @@ $(d)/bench.exe:    $(d)/libxt/xt.lib              \
                    tests/clear2.o                 \
                    tests/cube.o                   \
                    tests/fixedpoint.o             \
+                   tests/fixedpoint2.o            \
                    tests/helpers.o                \
                    tests/lines.o                  \
                    tests/nop.o                    \
@@ -37,6 +38,7 @@ $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/cardinfo.o               \
                    tests/cube.o                   \
                    tests/fixedpoint.o             \
+                   tests/fixedpoint2.o            \
                    tests/helpers.o                \
                    tests/lines.o                  \
 

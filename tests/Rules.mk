@@ -4,6 +4,7 @@ d              := $(dir)
 
 # local variables
 OBJS_ASM_$(d)   := $(d)/clear2.o                  \
+                   $(d)/fixedpoint2.o             \
                    $(d)/quaternion2.o             \
 
 OBJS_$(d)       := $(OBJS_ASM_$(d))               \
