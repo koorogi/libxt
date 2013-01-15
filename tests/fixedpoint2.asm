@@ -1,7 +1,10 @@
+%include "macro.asm"
+
     [bits    16]
     [section .text]
 
     global sqrt_turkowski_
+    ; www.realitypixels.com/turk/computergraphics/InverseSqrt.pdf
     ; input  = ax
     ; output = ax
 sqrt_turkowski_:
@@ -9,9 +12,7 @@ sqrt_turkowski_:
     ; bx = remHi
     ; cx = root
     ; dx = testDiv
-    push    bx
-    push    cx
-    push    dx
+    xpush   bx, cx, dx
 
     xor     bx, bx
     xor     cx, cx
@@ -20,9 +21,7 @@ sqrt_turkowski_:
 %endrep
 
     mov     ax, cx
-    pop     dx
-    pop     cx
-    pop     bx
+    xpop    bx, cx, dx
     ret
 
 turkowski_iteration:
@@ -46,4 +45,51 @@ turkowski_iteration:
     inc     cx
 
 turkowski_iter_done:
+    ret
+
+%macro arm_iter     2
+    ;dx = delta * (2 * root + delta)
+    mov     dx, cx
+    shl     dx, 1
+    add     dx, bx
+    %1      dx, %2
+    cmp     ax, dx
+    jle     %%skip
+
+    sub     ax, dx
+    add     cx, bx
+
+%%skip:
+    shr     bx, 1
+%endmacro
+
+    global sqrt_arm_
+    ; https://groups.google.com/d/msg/comp.sys.arm/E-FYsVPD8aA/v6g09oDEHn0J
+    ; input  = ax
+    ; output = ax
+sqrt_arm_:
+    ; ax = M
+    ; bx = delta
+    ; cx = root
+    ; dx = tmp
+    xpush   bx, cx, dx
+
+    mov     bx, 0x0800
+    xor     cx, cx
+
+    arm_iter    xshl, 3     ; delta = 8
+    arm_iter    xshl, 2     ; delta = 4
+    arm_iter    xshl, 1     ; delta = 2
+    arm_iter    xshl, 0     ; delta = 1
+    arm_iter    xshr, 1     ; delta = 1/2
+    arm_iter    xshr, 2     ; delta = 1/4
+    arm_iter    xshr, 3     ; delta = 1/8
+    arm_iter    xshr, 4     ; delta = 1/16
+    arm_iter    xshr, 5     ; delta = 1/32
+    arm_iter    xshr, 6     ; delta = 1/64
+    arm_iter    xshr, 7     ; delta = 1/128
+    arm_iter    xshr, 8     ; delta = 1/256
+
+    mov     ax, cx
+    xpop    bx, cx, dx
     ret

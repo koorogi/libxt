@@ -20,6 +20,7 @@ static const TestCase *test_cases[] = {
     &separator,
     &test_sqrt_libxt,
     &test_sqrt_turkowski,
+    &test_sqrt_arm,
     NULL
 };
 

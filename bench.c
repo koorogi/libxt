@@ -94,6 +94,7 @@ static const Benchmark *benchmarks[] = {
     &separator,
     &bench_sqrt_libxt,
     &bench_sqrt_turkowski,
+    &bench_sqrt_arm,
     &separator,
     &bench_quat_conj,
     &bench_quat_conj2,
