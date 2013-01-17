@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include <conio.h>
 #include <i86.h>
+#include <assert.h>
 
 typedef uint8_t  far *XtHerculesFb;
 typedef uint16_t far *XtHerculesFb16;
@@ -55,8 +56,12 @@ typedef enum {
 
 void xt_hercules_mode_set(XtHerculesMode mode);
 
+/* drawing helpers */
+extern const xt_hercules_fb_row_offset[348];
+
 /* drawing routines */
 void xt_hercules_fill(XtHerculesFb buf, uint8_t fill);
+void xt_hercules_line_horiz(XtHerculesFb buf, int x1, int x2, int y);
 
 #endif
 

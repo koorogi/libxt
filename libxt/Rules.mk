@@ -15,6 +15,7 @@ CLEAN          := $(TGT_LIB_$(d)) $(CLEAN)
 # local rules
 $(d)/xt.lib:      $(d)/video/hercules/misc.o             \
                   $(d)/video/hercules/rect.o             \
+                  $(d)/video/hercules/line.o             \
 
 -include $(DEPS_$(d))
 

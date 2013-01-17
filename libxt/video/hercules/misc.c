@@ -6,6 +6,33 @@
 #include <video/mda.h>
 #include <video/hercules.h>
 
+#define OFFSET(rowdiv4)     (90 * (rowdiv4))
+#define FB_ROW(rowdiv4)     OFFSET(rowdiv4),            \
+                            OFFSET(rowdiv4) + 0x2000,   \
+                            OFFSET(rowdiv4) + 0x4000,   \
+                            OFFSET(rowdiv4) + 0x6000
+
+const xt_hercules_fb_row_offset[348] = {
+    FB_ROW( 0), FB_ROW( 1), FB_ROW( 2), FB_ROW( 3), FB_ROW( 4),
+    FB_ROW( 5), FB_ROW( 6), FB_ROW( 7), FB_ROW( 8), FB_ROW( 9),
+    FB_ROW(10), FB_ROW(11), FB_ROW(12), FB_ROW(13), FB_ROW(14),
+    FB_ROW(15), FB_ROW(16), FB_ROW(17), FB_ROW(18), FB_ROW(19),
+    FB_ROW(20), FB_ROW(21), FB_ROW(22), FB_ROW(23), FB_ROW(24),
+    FB_ROW(25), FB_ROW(26), FB_ROW(27), FB_ROW(28), FB_ROW(29),
+    FB_ROW(30), FB_ROW(31), FB_ROW(32), FB_ROW(33), FB_ROW(34),
+    FB_ROW(35), FB_ROW(36), FB_ROW(37), FB_ROW(38), FB_ROW(39),
+    FB_ROW(40), FB_ROW(41), FB_ROW(42), FB_ROW(43), FB_ROW(44),
+    FB_ROW(45), FB_ROW(46), FB_ROW(47), FB_ROW(48), FB_ROW(49),
+    FB_ROW(50), FB_ROW(51), FB_ROW(52), FB_ROW(53), FB_ROW(54),
+    FB_ROW(55), FB_ROW(56), FB_ROW(57), FB_ROW(58), FB_ROW(59),
+    FB_ROW(60), FB_ROW(61), FB_ROW(62), FB_ROW(63), FB_ROW(64),
+    FB_ROW(65), FB_ROW(66), FB_ROW(67), FB_ROW(68), FB_ROW(69),
+    FB_ROW(70), FB_ROW(71), FB_ROW(72), FB_ROW(73), FB_ROW(74),
+    FB_ROW(75), FB_ROW(76), FB_ROW(77), FB_ROW(78), FB_ROW(79),
+    FB_ROW(80), FB_ROW(81), FB_ROW(82), FB_ROW(83), FB_ROW(84),
+    FB_ROW(85), FB_ROW(86)
+};
+
 XtHerculesCard xt_hercules_card(void) {
     uint8_t status = inp(XT_MDA_PORT_STATUS);
     _Bool   vsync  = XT_HERCULES_STATUS_VSYNC(status);
