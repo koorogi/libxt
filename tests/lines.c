@@ -23,6 +23,25 @@ static void hlines_long(void) {
     }
 }
 
+static void angled_lines(void) {
+    static struct { int x, y; } points[] = {
+        { 32, 0 }, { 30, 10 }, { 26, 19 }, { 19, 26 }, { 10, 30 }
+    };
+
+    for (int centerx = 48; centerx <= 720 - 48; centerx += 78) {
+        for (int centery = 48; centery <= 348 - 48; centery += 84) {
+            for (int i = 0; i < 5; i++) {
+                int dx = points[i].x;
+                int dy = points[i].y;
+                xt_hercules_line(XT_HERCULES_FRAMEBUFFER0, centerx, centery, centerx + dx, centery + dy);
+                xt_hercules_line(XT_HERCULES_FRAMEBUFFER0, centerx, centery, centerx + dy, centery - dx);
+                xt_hercules_line(XT_HERCULES_FRAMEBUFFER0, centerx, centery, centerx - dx, centery - dy);
+                xt_hercules_line(XT_HERCULES_FRAMEBUFFER0, centerx, centery, centerx - dy, centery + dx);
+            }
+        }
+    }
+}
+
 const Benchmark bench_hercules_hlines_short = {
     { "hercules_hlines_short", "Draw short horizontal lines" },
     setmode_graphics,
@@ -37,16 +56,32 @@ const Benchmark bench_hercules_hlines_long = {
     setmode_text,
 };
 
-static void hlines(void) {
-    setmode_graphics();
-    hlines_short();
-    getch();
-    setmode_text();
-}
+const Benchmark bench_hercules_alines = {
+    { "hercules_alines", "Draw angled lines" },
+    setmode_graphics,
+    angled_lines,
+    setmode_text,
+};
+
+#define TESTCASE(name,func)             \
+    static void name ## _tester(void) { \
+        setmode_graphics();             \
+        func();                         \
+        getch();                        \
+        setmode_text();                 \
+    }
+
+TESTCASE(hlines, hlines_short)
+TESTCASE(alines, angled_lines)
+
+const TestCase test_alines = {
+    { "alines", "Draw angled lines" },
+    alines_tester,
+};
 
 const TestCase test_hlines = {
     { "hlines", "Draw horizontal lines" },
-    hlines,
+    hlines_tester,
 };
 
 static void vlines(void) {

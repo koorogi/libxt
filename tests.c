@@ -12,6 +12,7 @@ static const TestCase separator = {
 static const TestCase *test_cases[] = {
     &test_cardinfo,
     &separator,
+    &test_alines,
     &test_hlines,
     &test_vlines,
     NULL

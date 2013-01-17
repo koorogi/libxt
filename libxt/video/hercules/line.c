@@ -70,3 +70,43 @@ void xt_hercules_line_vert(XtHerculesFb buf, int x, int y1, int y2) {
     }
 }
 
+void xt_hercules_line(XtHerculesFb buf, int x1, int y1, int x2, int y2) {
+    if (x1 == x2) {
+        xt_hercules_line_vert(buf, x1, y1, y2);
+    } else if (y1 == y2){
+        xt_hercules_line_horiz(buf, x1, x2, y1);
+    } else {
+        void (*draw)(XtHerculesFb, int, int, int);
+
+        int deltax = XT_ABS(x2 - x1);
+        int deltay = XT_ABS(y2 - y1);
+        if (deltay >= deltax) {
+            draw = line_vert;
+            XT_SWAP(int, x1, y1);
+            XT_SWAP(int, x2, y2);
+            XT_SWAP(int, deltax, deltay);
+        } else {
+            draw = line_horiz;
+        }
+        if (x1 > x2) {
+            XT_SWAP(int, x1, x2);
+            XT_SWAP(int, y1, y2);
+        }
+
+        int ystep = XT_SIGN(y2 - y1);
+        int error = deltax >> 1;
+
+        while (x1 <= x2) {
+            int startx = x1;
+
+            for (; x1 < x2 && error >= deltay; x1++) {
+                error -= deltay;
+            }
+
+            draw(buf, y1, startx, x1++);
+            error += deltax - deltay;
+            y1    += ystep;
+        }
+    }
+}
+
