@@ -1,7 +1,7 @@
 CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -ox -fpi87 -ms -i=libxt/include
 LIBF_ALL  = -q -n
 LDF_ALL   = -q -bcl=dos -lr clibs.lib
-ASF_ALL   = -f obj -g
+ASF_ALL   = -f obj -g -I libxt/include/
 
 CC        = wcc
 LIB       = wlib
