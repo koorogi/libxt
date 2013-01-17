@@ -23,6 +23,7 @@ $(d)/xt.lib:      $(d)/video/hercules/misc.o             \
                   $(d)/video/hercules/rect.o             \
                   $(d)/video/hercules/line.o             \
                   $(d)/math/fixedpoint.o                 \
+                  $(d)/math/quaternion.o                 \
                   $(d)/cmdline.o                         \
 
 -include $(DEPS_$(d))
