@@ -1,0 +1,11 @@
+*.d
+*.o
+*.bak
+*.lib
+*.lst
+*.exe
+*.err
+.*.swp
+.tag*
+*.OUT
+*.pyc
