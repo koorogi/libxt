@@ -10,6 +10,7 @@ OBJS_$(d)       := $(OBJS_ASM_$(d))               \
                    $(d)/cardinfo.o                \
                    $(d)/clear.o                   \
                    $(d)/cube.o                    \
+                   $(d)/fixedpoint.o              \
                    $(d)/helpers.o                 \
                    $(d)/lines.o                   \
                    $(d)/nop.o                     \

@@ -12,6 +12,7 @@ typedef struct {
 } Benchmark;
 
 extern const Benchmark bench_nop;
+
 extern const Benchmark bench_hercules_clear;
 extern const Benchmark bench_hercules_clear2;
 extern const Benchmark bench_hercules_clear3;
@@ -21,6 +22,9 @@ extern const Benchmark bench_hercules_hlines_short;
 extern const Benchmark bench_hercules_hlines_long;
 extern const Benchmark bench_hercules_cube;
 extern const Benchmark bench_hercules_vsync;
+
+extern const Benchmark bench_sqrt_libxt;
+
 extern const Benchmark bench_quat_conj;
 extern const Benchmark bench_quat_conj2;
 extern const Benchmark bench_quat_conj3;
@@ -35,6 +39,8 @@ extern const TestCase test_cube;
 extern const TestCase test_alines;
 extern const TestCase test_hlines;
 extern const TestCase test_vlines;
+
+extern const TestCase test_sqrt_libxt;
 
 #endif
 

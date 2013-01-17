@@ -92,6 +92,8 @@ static const Benchmark separator = {
 static const Benchmark *benchmarks[] = {
     &bench_nop,
     &separator,
+    &bench_sqrt_libxt,
+    &separator,
     &bench_quat_conj,
     &bench_quat_conj2,
     &bench_quat_conj3,
