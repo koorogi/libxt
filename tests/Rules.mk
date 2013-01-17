@@ -4,6 +4,7 @@ d              := $(dir)
 
 # local variables
 OBJS_ASM_$(d)   := $(d)/clear2.o                  \
+                   $(d)/quaternion2.o             \
 
 OBJS_$(d)       := $(OBJS_ASM_$(d))               \
                    $(d)/cardinfo.o                \
@@ -12,6 +13,7 @@ OBJS_$(d)       := $(OBJS_ASM_$(d))               \
                    $(d)/helpers.o                 \
                    $(d)/lines.o                   \
                    $(d)/nop.o                     \
+                   $(d)/quaternion.o              \
 
 DEPS_$(d)       := $(OBJS_$(d):%.o=%.d)
 LST_$(d)        := $(OBJS_ASM_$(d):%.o=%.lst)

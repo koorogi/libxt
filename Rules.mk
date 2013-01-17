@@ -28,6 +28,8 @@ $(d)/bench.exe:    $(d)/libxt/xt.lib              \
                    tests/helpers.o                \
                    tests/lines.o                  \
                    tests/nop.o                    \
+                   tests/quaternion.o             \
+                   tests/quaternion2.o            \
 
 $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/cardinfo.o               \

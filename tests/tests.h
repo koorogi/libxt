@@ -20,6 +20,9 @@ extern const Benchmark bench_hercules_alines;
 extern const Benchmark bench_hercules_hlines_short;
 extern const Benchmark bench_hercules_hlines_long;
 extern const Benchmark bench_hercules_vsync;
+extern const Benchmark bench_quat_conj;
+extern const Benchmark bench_quat_conj2;
+extern const Benchmark bench_quat_conj3;
 
 typedef struct {
     XtCommand command;
