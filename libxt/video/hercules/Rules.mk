@@ -6,6 +6,7 @@ d              := $(dir)
 
 # local variables
 OBJS_$(d) := $(d)/misc.o       \
+             $(d)/rect.o       \
 
 DEPS_$(d) := $(OBJS_$(d):%.o=%.d)
 CLEAN     := $(CLEAN) $(OBJS_$(d)) $(DEPS_$(d))

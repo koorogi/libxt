@@ -1,7 +1,18 @@
 #ifndef LIBXT_VIDEO_HERCULES_H
 #define LIBXT_VIDEO_HERCULES_H
 
+#include <inttypes.h>
 #include <conio.h>
+#include <i86.h>
+
+typedef uint8_t  far *XtHerculesFb;
+typedef uint16_t far *XtHerculesFb16;
+
+#define XT_HERCULES_GRAPHICS_COLS           720
+#define XT_HERCULES_GRAPHICS_ROWS           348
+
+#define XT_HERCULES_FRAMEBUFFER0            ((XtHerculesFb) MK_FP(0xb000, 0))
+#define XT_HERCULES_FRAMEBUFFER1            ((XtHerculesFb) MK_FP(0xb800, 0))
 
 /* the hercules also supports MDA_PORT_MODE_CTRL, MDA_PORT_STATUS */
 #define XT_HERCULES_PORT_LIGHTPEN_SET       0x03b9
@@ -43,6 +54,9 @@ typedef enum {
 } XtHerculesMode;
 
 void xt_hercules_mode_set(XtHerculesMode mode);
+
+/* drawing routines */
+void xt_hercules_fill(XtHerculesFb buf, uint8_t fill);
 
 #endif
 
