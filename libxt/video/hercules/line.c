@@ -46,3 +46,27 @@ void xt_hercules_line_horiz(XtHerculesFb buf, int x1, int x2, int y) {
     }
 }
 
+static void line_vert(XtHerculesFb buf, int x, int y1, int y2) {
+    uint8_t bit = 0x80 >> (x & 7);
+    buf += x >> 3;
+
+    for (; y1 <= y2; y1++) {
+        buf[xt_hercules_fb_row_offset[y1]] |= bit;
+    }
+}
+
+void xt_hercules_line_vert(XtHerculesFb buf, int x, int y1, int y2) {
+    if (x < 0 || x >= XT_HERCULES_GRAPHICS_COLS) {
+        return;
+    }
+
+    if (y1 > y2) {
+        XT_SWAP(int, y1, y2);
+    }
+    y1 = XT_CLIP(y1,  0, XT_HERCULES_GRAPHICS_ROWS);
+    y2 = XT_CLIP(y2, -1, XT_HERCULES_GRAPHICS_ROWS - 1);
+    if (y1 <= y2) {
+        line_vert(buf, x, y1, y2);
+    }
+}
+

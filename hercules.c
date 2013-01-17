@@ -13,6 +13,7 @@ static const HerculesCommand *commands[] = {
     &cmd_cardinfo,
     &separator,
     &cmd_hlines,
+    &cmd_vlines,
     NULL
 };
 
