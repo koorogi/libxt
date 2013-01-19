@@ -1,16 +1,17 @@
 #ifndef UNITTEST_H
 #define UNITTEST_H
 
+#include <inttypes.h>
 #include <stdio.h>
 
 typedef void (*UnitTest)(void);
 
 #define UNITTEST_SECTION(name)  {           \
-    unsigned total = 0, passed = 0;         \
+    uint32_t total = 0, passed = 0;         \
     printf("%s: %s\n", __FILE__, name);
 
 #define UNITTEST_SECTION_END()              \
-    printf("    %u passed + %u failed = %u total\n\n", passed, total - passed, total); \
+    printf("    %" PRIu32 " passed + %" PRIu32 " failed = %" PRIu32 " total\n\n", passed, total - passed, total); \
     }
 
 #define UNITTEST(expr)                      \
