@@ -6,6 +6,7 @@
 
 const UnitTest unittests[] = {
     utest_fixedpoint,
+    utest_bitshift,
     NULL
 };
 

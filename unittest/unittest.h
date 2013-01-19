@@ -39,6 +39,7 @@ extern _Bool verbose;
 extern const UnitTest unittests[];
 
 void utest_fixedpoint(void);
+void utest_bitshift(void);
 
 #endif
 

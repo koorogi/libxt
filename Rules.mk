@@ -43,5 +43,7 @@ $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/lines.o                  \
 
 $(d)/unittest.exe: $(d)/libxt/xt.lib              \
+                   unittest/bitshift.o            \
+                   unittest/bitshift2.o           \
                    unittest/fixedpoint.o          \
                    unittest/unittest.o            \
