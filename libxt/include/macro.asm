@@ -63,7 +63,7 @@
         xor     %1, %1
     %elif %2 >= 12
         times   (16 - %2) ror %1, 1
-        and     %1, 0xffff << %2
+        and     %1, (0xffff << %2) & 0xffff
     %elif %2 >= 8
         mov     highbyte(%1), lowbyte(%1)
         xor     lowbyte(%1),  lowbyte(%1)
@@ -71,7 +71,7 @@
     %elif %2 >= 7
         xchg    lowbyte(%1),  highbyte(%1)
         times   (8 - %2) ror %1, 1
-        and     %1, 0xffff << %2
+        and     %1, (0xffff << %2) & 0xffff
     %else
         times   %2 shl %1, 1
     %endif
