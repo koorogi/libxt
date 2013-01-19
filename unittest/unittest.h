@@ -24,6 +24,17 @@ typedef void (*UnitTest)(void);
         }                                   \
     } while(0)
 
+#define UNITTEST2(expr,fmt,...)                         \
+    do {                                                \
+        _Bool pass = !!(expr);                          \
+        passed    += pass;                              \
+        total++;                                        \
+        if (!pass || verbose) {                         \
+            printf("    %s: %s\n", pass ? "PASS" : "FAIL", #expr ); \
+            printf("        " fmt "\n", __VA_ARGS__);   \
+        }                                               \
+    } while(0)
+
 extern _Bool verbose;
 extern const UnitTest unittests[];
 
