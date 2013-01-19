@@ -107,8 +107,10 @@
         %if %2 >= 8
             mov     al, ah
             cbw
+            times   (%2 - 8) sar %1, 1
+        %else
+            times   %2 sar %1, 1
         %endif
-        times   (%2 - 8) sar %1, 1
     %else
         times   %2 sar %1, 1
     %endif
