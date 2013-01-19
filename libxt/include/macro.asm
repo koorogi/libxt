@@ -82,8 +82,7 @@
     xshl    %1, %2
 %endmacro
 
-; arithmetic shift right. if bits >= 8, fastest if performed on ax.
-; TODO: this can probably be optimized more
+; arithmetic shift right. if 8 <= bits < 15, fastest if performed on ax.
 ; cycle counts for shifting ax:
 ;   1 bit  ->  2 cycles      2 bits ->  4 cycles
 ;   3 bits ->  6 cycles      4 bits ->  8 cycles
@@ -92,25 +91,33 @@
 ;   9 bits ->  6 cycles     10 bits ->  8 cycles
 ;  11 bits -> 10 cycles     12 bits -> 12 cycles
 ;  13 bits -> 14 cycles     14 bits -> 16 cycles
-;  15 bits -> 18 cycles     16 bits -> 20 cycles
+;  15 bits ->  5 cycles     16 bits ->  5 cycles
 ; cycle counts for shifting other registers:
 ;   1 bit  ->  2 cycles      2 bits ->  4 cycles
 ;   3 bits ->  6 cycles      4 bits ->  8 cycles
 ;   5 bits -> 10 cycles      6 bits -> 12 cycles
-;   7 bits -> 14 cycles      8 bits -> 16 cycles
-;   9 bits -> 18 cycles     10 bits -> 20 cycles
-;  11 bits -> 22 cycles     12 bits -> 24 cycles
-;  13 bits -> 26 cycles     14 bits -> 28 cycles
-;  15 bits -> 30 cycles     16 bits -> 32 cycles
+;   7 bits -> 14 cycles      8 bits -> 10 cycles
+;   9 bits -> 12 cycles     10 bits -> 14 cycles
+;  11 bits -> 16 cycles     12 bits -> 18 cycles
+;  13 bits -> 20 cycles     14 bits -> 22 cycles
+;  15 bits ->  5 cycles     16 bits ->  5 cycles
 %macro xsar 2
-    %ifidni %1,ax
-        %if %2 >= 8
-            mov     al, ah
-            cbw
-            times   (%2 - 8) sar %1, 1
-        %else
-            times   %2 sar %1, 1
+    %if %2 >= 15
+        rol     highbyte(%1), 1
+        sbb     %1, %1
+    %elif %2 >= 8
+        %ifnidni %1,ax
+            xchg    ax, %1
         %endif
+
+        mov     al, ah
+        cbw
+
+        %ifnidni %1,ax
+            xchg    ax, %1
+        %endif
+
+        times   (%2 - 8) sar %1, 1
     %else
         times   %2 sar %1, 1
     %endif
