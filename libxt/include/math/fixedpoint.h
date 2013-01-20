@@ -37,13 +37,12 @@ XtFixed8 xt_fixed_8d8(XtFixed8 num, XtFixed8 den);
     value [ax]              \
     modify [ax dx]
 
+/* square root */
+XtFixed8 xt_fixed_sqrt(XtFixed8 val);
+
 #include <math.h>
 
 /* TODO: replace these with native fixed point implementations */
-static inline XtFixed8 xt_fixed_sqrt(XtFixed8 a) {
-    return xt_fixed_Fto8(sqrt(xt_fixed_8toF(a)));
-}
-
 static inline XtFixed8 xt_fixed_sin(XtFixed8 a) {
     return xt_fixed_Fto8(sin(xt_fixed_8toF(a)));
 }
