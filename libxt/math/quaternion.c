@@ -2,15 +2,6 @@
 
 #include <math/quaternion.h>
 
-XtQuaternion xt_quat_mult(XtQuaternion q1, XtQuaternion q2) {
-    XtQuaternion ret;
-    ret.w = xt_fixed_8x8(q1.w, q2.w) - xt_fixed_8x8(q1.x, q2.x) - xt_fixed_8x8(q1.y, q2.y) - xt_fixed_8x8(q1.z, q2.z);
-    ret.x = xt_fixed_8x8(q1.w, q2.x) + xt_fixed_8x8(q1.x, q2.w) + xt_fixed_8x8(q1.y, q2.z) - xt_fixed_8x8(q1.z, q2.y);
-    ret.y = xt_fixed_8x8(q1.w, q2.y) - xt_fixed_8x8(q1.x, q2.z) + xt_fixed_8x8(q1.y, q2.w) + xt_fixed_8x8(q1.z, q2.x);
-    ret.z = xt_fixed_8x8(q1.w, q2.z) + xt_fixed_8x8(q1.x, q2.y) - xt_fixed_8x8(q1.y, q2.x) + xt_fixed_8x8(q1.z, q2.w);
-    return ret;
-}
-
 XtVector3 xt_quat_rotate_vect(XtQuaternion rotate, XtVector3 v) {
     XtQuaternion tmp;
     tmp.w = 0;
