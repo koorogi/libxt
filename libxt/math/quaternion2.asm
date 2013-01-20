@@ -43,9 +43,9 @@ xt_quat_conj_:
 ;   cx = q1.SRC1a * q2.SRC2a OP1 q1.SRC1b * q2.SRC2b
 ;   bx = q1.SRC1a * q2.SRC2b OP2 q1.SRC1b * q2.SRC2a
 ; where %1 = SRC1a, %2 = SRC1b, %3 = SRC2a, %4 = SRC2b, %5 = OP1, %6 = OP2
-; clobbers ax, bx, cx, dx, di, es
-; TODO: if SRC2a and SRC2b are pre-loaded into di and es, we might be able
-;       to avoid a few loads over the course of the entire function
+; NOTE: %2 is just for consistency, it's actually unused. The caller must load
+;       q1.SRC1b into es before calling this macro
+; clobbers ax, bx, cx, dx, di
 %macro qmult_stage  6
     ; cx = q1.SRC1a * q2.SRC2a
     mov     ax, [quat1 + %1]    ; ax = di = q1.SRC1a
@@ -64,8 +64,7 @@ xt_quat_conj_:
     ; bx = q1.SRC1a * q2.SRC2b
     ; cx = q1.SRC1a * q2.SRC2a
     xchg    ax, bx              ; ax = q2.SRC2a; bx = q1.SRC1a * q2.SRC2b
-    mov     dx, [quat1 + %2]    ; dx = es = q1.SRC1b
-    mov     es, dx
+    mov     dx, es              ; dx = es = q1.SRC1b
     mult8x8 ax, dx
 
     ; bx = q1.SRC1a * q2.SRC2b OP2 q1.SRC1b * q2.SRC2a
@@ -95,17 +94,23 @@ xt_quat_mult_:
     xpush       ax, bx, cx, dx, di, bp
     mov         bp, sp
 
+    mov         ax, [quat1 + X]
+    mov         es, ax
+
     qmult_stage W, X, W, X, sub, add
     mov         [si + W], cx
     mov         [si + X], bx
 
-    qmult_stage Y, Z, Y, Z, add, sub
-    sub         [si + W], cx
-    add         [si + X], bx
-
     qmult_stage W, X, Y, Z, sub, add
     mov         [si + Y], cx
     mov         [si + Z], bx
+
+    mov         ax, [quat1 + Z]
+    mov         es, ax
+
+    qmult_stage Y, Z, Y, Z, add, sub
+    sub         [si + W], cx
+    add         [si + X], bx
 
     qmult_stage Y, Z, W, X, add, sub
     add         [si + Y], cx
