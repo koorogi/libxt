@@ -8,9 +8,7 @@
     ; dx = number2
     ; return in ax
 xt_fixed_8x8_:
-    imul    dx
-    mov     al, ah
-    mov     ah, dl
+    mult8x8 ax, dx
     ret
 
     global xt_fixed_8d8_
