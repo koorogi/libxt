@@ -26,6 +26,7 @@ extern const Benchmark bench_hercules_vsync;
 extern const Benchmark bench_sqrt_libxt;
 extern const Benchmark bench_sqrt_turkowski;
 extern const Benchmark bench_sqrt_arm;
+extern const Benchmark bench_sqrt_lut;
 
 extern const Benchmark bench_quat_conj;
 extern const Benchmark bench_quat_conj2;
@@ -45,6 +46,7 @@ extern const TestCase test_vlines;
 extern const TestCase test_sqrt_libxt;
 extern const TestCase test_sqrt_turkowski;
 extern const TestCase test_sqrt_arm;
+extern const TestCase test_sqrt_lut;
 
 #endif
 
