@@ -1,3 +1,5 @@
+%include "macro.asm"
+
 ; calculate conjugate of quaternion at [ds:si] and store at [es:di]
 ; clobbers ax
 %macro  conjugate   0
@@ -17,9 +19,7 @@
     ; input  = [sp+2]
     ; output = [ds:si]
 xt_quat_conj_:
-    push    dx
-    push    di
-    push    bp
+    xpush   dx, di, bp
     mov     bp, sp
 
     mov     ax, ds
@@ -28,7 +28,5 @@ xt_quat_conj_:
     lea     si, [bp+8]
     conjugate
 
-    pop     bp
-    pop     di
-    pop     dx
+    xpop    dx, di, bp
     ret     8
