@@ -2,21 +2,6 @@
 
 #include <math/quaternion.h>
 
-XtVector3 xt_quat_rotate_vect(XtQuaternion rotate, XtVector3 v) {
-    XtQuaternion tmp;
-    tmp.w = 0;
-    tmp.x = v.x;
-    tmp.y = v.y;
-    tmp.z = v.z;
-
-    tmp = xt_quat_mult(xt_quat_mult(rotate, tmp), xt_quat_conj(rotate));
-    XtVector3 ret;
-    ret.x = tmp.x;
-    ret.y = tmp.y;
-    ret.z = tmp.z;
-    return ret;
-}
-
 XtQuaternion xt_quat_rotate_make(XtFixed8 angle, XtVector3 axis) {
     XtFixed8 half_angle = angle >> 1;
     XtFixed8 half_cos   = xt_fixed_cos(half_angle);
