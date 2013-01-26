@@ -32,5 +32,7 @@ typedef uint16_t far *XtMdaTextBuffer;
 #define XT_MDA_TEXTATTR_NORMAL          XT_TEXTATTR_COLOR_FG(7)
 #define XT_MDA_TEXTATTR_REVERSE         XT_TEXTATTR_COLOR_BG(7)
 
+void xt_mda_clear(void);
+
 #endif
 

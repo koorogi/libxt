@@ -1,4 +1,5 @@
 #include <video/hercules.h>
+#include <video/mda.h>
 
 #include "helpers.h"
 
@@ -9,4 +10,5 @@ void setmode_graphics(void) {
 
 void setmode_text(void) {
     xt_hercules_mode_set(XtHerculesMode_Text);
+    xt_mda_clear();
 }
