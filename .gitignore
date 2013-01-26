@@ -3,6 +3,7 @@
 *.bak
 *.lib
 *.lst
+*.com
 *.exe
 *.err
 .*.swp
