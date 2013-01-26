@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 #include <conio.h>
+#include <i86.h>
 
 #define XT_MDA_PORT_MODE_CTRL           0x03b8
 #define XT_MDA_PORT_STATUS              0x03ba
@@ -19,15 +20,17 @@ static inline void xt_mda_modereg_write(uint8_t mode) {
 #define XT_MDA_STATUS_DRAWING(status)   ((status) & 0x08)
 #define XT_MDA_STATUS_HSYNC(status)     ((status) & 0x01)
 
-typedef volatile uint16_t far *XtMdaTextBuffer;
+typedef uint16_t far *XtMdaTextBuffer;
 
-#define XT_MDA_TEXTBUFFER               ((XtMdaTextBuffer) 0xb0000)
+#define XT_MDA_TEXTBUFFER               ((XtMdaTextBuffer) MK_FP(0xb000, 0))
 
 #include <video/textattr.h>
 
 #define XT_MDA_TEXTATTR_BLINK           XT_TEXTATTR_BLINK
 #define XT_MDA_TEXTATTR_BRIGHT          XT_TEXTATTR_BRIGHT
-#define XT_MDA_TEXTATTR_INVERT          (XT_TEXTATTR_COLOR_BG(7) | XT_TEXTATTR_COLOR_FG(7))
+#define XT_MDA_TEXTATTR_UNDERLINE       XT_TEXTATTR_COLOR_FG(1)
+#define XT_MDA_TEXTATTR_NORMAL          XT_TEXTATTR_COLOR_FG(7)
+#define XT_MDA_TEXTATTR_REVERSE         XT_TEXTATTR_COLOR_BG(7)
 
 #endif
 
