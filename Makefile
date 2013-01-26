@@ -1,7 +1,7 @@
 CF_ALL    = -0 -za99 -we -q -d3 -bt=dos -ox -fpi87 -ms -i=libxt/include
 LIBF_ALL  = -q -n
 LDF_ALL   = -q -bcl=dos -lr clibs.lib
-ASF_ALL   = -f obj -g -I libxt/include/
+ASF_ALL   = -I libxt/include/
 
 CC        = wcc
 LIB       = wlib
@@ -10,7 +10,8 @@ AS        = nasm
 COMP      = $(CC) $(CF_ALL) $(CF_TGT) -ad=$(patsubst %.c,%.d,$<) $< -fo=$@
 MKLIB     = $(LIB) $(LIBF_ALL) $(LIBF_TGT) $@ $(patsubst %,+%,$^)
 LINK      = $(LD) $(LDF_ALL) -fe=$@ $^
-ASM       = $(AS) $(ASF_ALL) $< -o $@ -l $(patsubst %.asm,%.lst,$<)
+ASM       = $(AS) -f obj $(ASF_ALL) $< -o $@ -l $(patsubst %.asm,%.lst,$<)
+COM       = $(AS) -f bin $(ASF_ALL) $< -o $@ -l $(patsubst %.asm,%.lst,$<)
 
 d         = .
 dir       = .
@@ -22,6 +23,9 @@ include Rules.mk
 # general rules
 %.o: %.c
 	$(COMP)
+
+%.com: %.asm
+	$(COM)
 
 %.o: %.asm
 	$(ASM)

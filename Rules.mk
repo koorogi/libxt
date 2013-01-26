@@ -5,6 +5,9 @@ include $(dir)/Rules.mk
 dir := $(d)/tests
 include $(dir)/Rules.mk
 
+dir := $(d)/tools
+include $(dir)/Rules.mk
+
 dir := $(d)/unittest
 include $(dir)/Rules.mk
 
