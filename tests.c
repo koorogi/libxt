@@ -22,6 +22,7 @@ static const TestCase *test_cases[] = {
     &test_sqrt_turkowski,
     &test_sqrt_arm,
     &test_sqrt_lut,
+    &test_sqrt_float,
     NULL
 };
 

@@ -11,6 +11,9 @@
 volatile XtFixed8 killoptim;
 
 /* square root */
+XtFixed8 sqrt_float(XtFixed8 val) {
+    return xt_fixed_Fto8(sqrt(xt_fixed_8toF(val)));
+}
 
 /* assembly implementations */
 XtFixed8 sqrt_turkowski(XtFixed8);
@@ -45,3 +48,4 @@ SQRT(libxt,     xt_fixed_sqrt)
 SQRT(turkowski, sqrt_turkowski)
 SQRT(arm,       sqrt_arm)
 SQRT(lut,       sqrt_lut)
+SQRT(float,     sqrt_float)
