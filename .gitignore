@@ -1,6 +1,7 @@
 *.d
 *.o
 *.bak
+*.b64
 *.lib
 *.lst
 *.com
