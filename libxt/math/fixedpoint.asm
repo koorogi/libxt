@@ -1,7 +1,7 @@
 %include "macro.asm"
 
-    [bits    16]
-    [section .text]
+    bits    16
+    segment code
 
     global xt_fixed_8x8_
     ; ax = number1
@@ -34,10 +34,8 @@ xt_fixed_8d8_:
     ; input  = ax
     ; output = ax
 xt_fixed_sqrt_:
-    xpush   bx, ds
+    xpush   bx
 
-    mov     bx, data
-    mov     ds, bx
     mov     bx, sqrttable
 
     test    ah, ah
@@ -48,19 +46,20 @@ xt_fixed_sqrt_:
 
 largesqrt:
     sqrtapprox 8
-    xpop    bx, ds
+    xpop    bx
     ret
 
 mediumsqrt:
     sqrtapprox 4
-    xpop    bx, ds
+    xpop    bx
     ret
 
 smallsqrt:
     sqrtapprox 0
-    xpop    bx, ds
+    xpop    bx
     ret
 
+    group   dgroup data
     segment data
 sqrttable:
     db      0x00, 0x10, 0x17, 0x1c, 0x20, 0x24, 0x27, 0x2a
