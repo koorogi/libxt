@@ -6,10 +6,10 @@ hercules_fillscreen_asm_:
     push        cx          ; save registers
     push        di
 
-    mov         es, dx      ; es:di = target address
-    mov         di, ax
+    mov         es, ax      ; es:di = target address
+    xor         di, di
 
-    mov         al, bl      ; ax = (fill << 8) | fill
+    mov         al, dl      ; ax = (fill << 8) | fill
     mov         ah, al
 
     mov         cx, 0x0f4b  ; store lines 0 mod 4

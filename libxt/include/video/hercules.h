@@ -66,10 +66,10 @@ void xt_hercules_mode_set(XtHerculesMode mode);
 extern const xt_hercules_fb_row_offset[348];
 
 /* drawing routines */
-void xt_hercules_fill(XtHerculesFb buf, uint8_t fill);
-void xt_hercules_line_horiz(XtHerculesFb buf, int x1, int x2, int y);
-void xt_hercules_line_vert(XtHerculesFb buf, int x, int y1, int y2);
-void xt_hercules_line(XtHerculesFb buf, int x1, int y1, int x2, int y2);
+void xt_hercules_fill(uint16_t bufseg, uint8_t fill);
+void xt_hercules_line_horiz(uint16_t bufseg, int x1, int x2, int y);
+void xt_hercules_line_vert(uint16_t bufseg, int x, int y1, int y2);
+void xt_hercules_line(uint16_t bufseg, int x1, int y1, int x2, int y2);
 
 #endif
 

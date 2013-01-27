@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <i86.h>
 
 #include <video/hercules.h>
 
@@ -16,7 +17,7 @@ const Benchmark bench_hercules_vsync = {
 /* benchmarks for different ways to clear the screen */
 
 static void clear_libxt(void) {
-    xt_hercules_fill(XT_HERCULES_FRAMEBUFFER0, 0);
+    xt_hercules_fill(FP_SEG(XT_HERCULES_FRAMEBUFFER0), 0);
 }
 
 static void clear_memset(void) {
@@ -29,10 +30,10 @@ static void clear_memset2(void) {
     }
 }
 
-void hercules_fillscreen_asm(XtHerculesFb fb, uint8_t fill);
+void hercules_fillscreen_asm(uint16_t bufseg, uint8_t fill);
 
 static void clear_asm(void) {
-    hercules_fillscreen_asm(XT_HERCULES_FRAMEBUFFER0, 0);
+    hercules_fillscreen_asm(FP_SEG(XT_HERCULES_FRAMEBUFFER0), 0);
 }
 
 const Benchmark bench_hercules_clear = {

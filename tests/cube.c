@@ -23,37 +23,37 @@ static const XtVector3 points[] = {
     { XT_FIXED8(-DIM), XT_FIXED8( DIM), XT_FIXED8( DIM) },
 };
 
-static const XtHerculesFb framebuf[2] = {
-    XT_HERCULES_FRAMEBUFFER0, XT_HERCULES_FRAMEBUFFER1
+static const uint16_t framebufseg[2] = {
+    FP_SEG(XT_HERCULES_FRAMEBUFFER0), FP_SEG(XT_HERCULES_FRAMEBUFFER1)
 };
 
-static inline void draw_line(XtHerculesFb buf, XtVector3 from, XtVector3 to) {
-    xt_hercules_line(buf,
+static inline void draw_line(uint16_t bufseg, XtVector3 from, XtVector3 to) {
+    xt_hercules_line(bufseg,
             360 + 2*xt_fixed_8to16(from.x), 174 + 2*xt_fixed_8to16(from.y),
             360 + 2*xt_fixed_8to16(  to.x), 174 + 2*xt_fixed_8to16(  to.y));
 }
 
-static void draw_cube(XtHerculesFb buf, XtVector3 *points) {
+static void draw_cube(uint16_t bufseg, XtVector3 *points) {
     for (int i = 0; i < 4; i++) {
         int nexti = (i + 1) & 3;
-        draw_line(buf, points[  i], points[  nexti]);
-        draw_line(buf, points[4+i], points[4+nexti]);
-        draw_line(buf, points[  i], points[4+i]);
+        draw_line(bufseg, points[  i], points[  nexti]);
+        draw_line(bufseg, points[4+i], points[4+nexti]);
+        draw_line(bufseg, points[  i], points[4+i]);
     }
 }
 
-static void draw_frame(XtHerculesFb fb, XtFixed8 angle, XtVector3 axis) {
+static void draw_frame(uint16_t bufseg, XtFixed8 angle, XtVector3 axis) {
     XtQuaternion rot;
     XtVector3    rotpoints[8];
 
-    xt_hercules_fill(fb, 0);
+    xt_hercules_fill(bufseg, 0);
 
     rot = xt_quat_rotate_make(angle, axis);
     for (int i = 0; i < 8; i ++) {
         rotpoints[i] = xt_quat_rotate_vect(rot, points[i]);
     }
 
-    draw_cube(fb, rotpoints);
+    draw_cube(bufseg, rotpoints);
 }
 
 static void cube_tester(void) {
@@ -66,7 +66,7 @@ static void cube_tester(void) {
     while (1) {
         for (; angle < 2 * XT_FIXED8_PI; angle += XT_FIXED8_PI / FRAMES) {
             fb ^= 1;
-            draw_frame(framebuf[fb], angle, axis);
+            draw_frame(framebufseg[fb], angle, axis);
 
             xt_hercules_wait_vsync();
             xt_hercules_page_swap();
@@ -89,7 +89,7 @@ static void cube_bencher(void) {
     int fb = xt_hercules_page_get();
     for (XtFixed8 angle = 0; angle < 2 * XT_FIXED8_PI; angle += XT_FIXED8_PI / FRAMES2) {
         fb ^= 1;
-        draw_frame(framebuf[fb], angle, axis);
+        draw_frame(framebufseg[fb], angle, axis);
         xt_hercules_page_swap();
     }
 }

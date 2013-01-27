@@ -1,12 +1,13 @@
 #include <inttypes.h>
 #include <string.h>
+#include <i86.h>
 
 #include <video/hercules.h>
 #include <util.h>
 
 /* 0 < x1 < x2 <= HGC_GRAPHICS_COLS, 0 <= y < HGC_GRAPHICS_ROWS */
-static void line_horiz(XtHerculesFb buf, int y, int x1, int x2) {
-    XtHerculesFb row = buf + xt_hercules_fb_row_offset[y] + (x1 >> 3);
+static void line_horiz(uint16_t bufseg, int y, int x1, int x2) {
+    XtHerculesFb row = MK_FP(bufseg, xt_hercules_fb_row_offset[y] + (x1 >> 3));
 
     int count = x2 - x1 + 1;
     int skip  = x1 & 7;
@@ -31,7 +32,7 @@ static void line_horiz(XtHerculesFb buf, int y, int x1, int x2) {
     }
 }
 
-void xt_hercules_line_horiz(XtHerculesFb buf, int x1, int x2, int y) {
+void xt_hercules_line_horiz(uint16_t bufseg, int x1, int x2, int y) {
     if (y < 0 || y >= XT_HERCULES_GRAPHICS_ROWS) {
         return;
     }
@@ -42,20 +43,20 @@ void xt_hercules_line_horiz(XtHerculesFb buf, int x1, int x2, int y) {
     x1 = XT_CLIP(x1,  0, XT_HERCULES_GRAPHICS_COLS);
     x2 = XT_CLIP(x2, -1, XT_HERCULES_GRAPHICS_COLS - 1);
     if (x1 <= x2) {
-        line_horiz(buf, y, x1, x2);
+        line_horiz(bufseg, y, x1, x2);
     }
 }
 
-static void line_vert(XtHerculesFb buf, int x, int y1, int y2) {
-    uint8_t bit = 0x80 >> (x & 7);
-    buf += x >> 3;
+static void line_vert(uint16_t bufseg, int x, int y1, int y2) {
+    XtHerculesFb buf = MK_FP(bufseg, x >> 3);
+    uint8_t      bit = 0x80 >> (x & 7);
 
     for (; y1 <= y2; y1++) {
         buf[xt_hercules_fb_row_offset[y1]] |= bit;
     }
 }
 
-void xt_hercules_line_vert(XtHerculesFb buf, int x, int y1, int y2) {
+void xt_hercules_line_vert(uint16_t bufseg, int x, int y1, int y2) {
     if (x < 0 || x >= XT_HERCULES_GRAPHICS_COLS) {
         return;
     }
@@ -66,17 +67,17 @@ void xt_hercules_line_vert(XtHerculesFb buf, int x, int y1, int y2) {
     y1 = XT_CLIP(y1,  0, XT_HERCULES_GRAPHICS_ROWS);
     y2 = XT_CLIP(y2, -1, XT_HERCULES_GRAPHICS_ROWS - 1);
     if (y1 <= y2) {
-        line_vert(buf, x, y1, y2);
+        line_vert(bufseg, x, y1, y2);
     }
 }
 
-void xt_hercules_line(XtHerculesFb buf, int x1, int y1, int x2, int y2) {
+void xt_hercules_line(uint16_t bufseg, int x1, int y1, int x2, int y2) {
     if (x1 == x2) {
-        xt_hercules_line_vert(buf, x1, y1, y2);
+        xt_hercules_line_vert(bufseg, x1, y1, y2);
     } else if (y1 == y2){
-        xt_hercules_line_horiz(buf, x1, x2, y1);
+        xt_hercules_line_horiz(bufseg, x1, x2, y1);
     } else {
-        void (*draw)(XtHerculesFb, int, int, int);
+        void (*draw)(uint16_t, int, int, int);
 
         int deltax = XT_ABS(x2 - x1);
         int deltay = XT_ABS(y2 - y1);
@@ -103,7 +104,7 @@ void xt_hercules_line(XtHerculesFb buf, int x1, int y1, int x2, int y2) {
                 error -= deltay;
             }
 
-            draw(buf, y1, startx, x1++);
+            draw(bufseg, y1, startx, x1++);
             error += deltax - deltay;
             y1    += ystep;
         }

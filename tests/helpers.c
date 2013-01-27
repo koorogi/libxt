@@ -5,7 +5,7 @@
 
 void setmode_graphics(void) {
     xt_hercules_mode_set(XtHerculesMode_Graphics);
-    xt_hercules_fill(XT_HERCULES_FRAMEBUFFER0, 0);
+    xt_hercules_fill(FP_SEG(XT_HERCULES_FRAMEBUFFER0), 0);
 }
 
 void setmode_text(void) {
