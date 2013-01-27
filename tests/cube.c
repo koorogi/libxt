@@ -33,7 +33,7 @@ static inline void draw_line(uint16_t bufseg, XtVector3 from, XtVector3 to) {
             360 + 2*xt_fixed_8to16(  to.x), 174 + 2*xt_fixed_8to16(  to.y));
 }
 
-static void draw_cube(uint16_t bufseg, XtVector3 *points) {
+static void draw_cube(uint16_t bufseg, const XtVector3 *points) {
     for (int i = 0; i < 4; i++) {
         int nexti = (i + 1) & 3;
         draw_line(bufseg, points[  i], points[  nexti]);
