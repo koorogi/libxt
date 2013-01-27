@@ -5,12 +5,15 @@ d              := $(dir)
 # subdirectories
 
 # local variables
-OBJS_$(d) := $(d)/fixedpoint.o       \
-             $(d)/quaternion.o       \
-             $(d)/quaternion2.o      \
+OBJS_ASM_$(d)   := $(d)/quaternion2.o      \
+
+OBJS_$(d)       := OBJS_ASM_$(d)           \
+                   $(d)/fixedpoint.o       \
+                   $(d)/quaternion.o       \
 
 DEPS_$(d) := $(OBJS_$(d):%.o=%.d)
-CLEAN     := $(CLEAN) $(OBJS_$(d)) $(DEPS_$(d))
+LST_$(d)  := $(OBJS_ASM_$(d):%.o=%.lst)
+CLEAN     := $(CLEAN) $(OBJS_$(d)) $(DEPS_$(d)) $(LST_$(d))
 
 # local rules
 $(OBJS_$(d)): CF_TGT := -i=$(d)
