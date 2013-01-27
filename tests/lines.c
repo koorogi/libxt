@@ -43,21 +43,21 @@ static void angled_lines(void) {
 }
 
 const Benchmark bench_hercules_hlines_short = {
-    { "hercules_hlines_short", "Draw short horizontal lines" },
+    { "hlines", "Draw short horizontal lines" },
     setmode_graphics,
     hlines_short,
     setmode_text,
 };
 
 const Benchmark bench_hercules_hlines_long = {
-    { "hercules_hlines_long", "Draw long horizontal lines" },
+    { "hlines2", "Draw long horizontal lines" },
     setmode_graphics,
     hlines_long,
     setmode_text,
 };
 
 const Benchmark bench_hercules_alines = {
-    { "hercules_alines", "Draw angled lines" },
+    { "alines", "Draw angled lines" },
     setmode_graphics,
     angled_lines,
     setmode_text,
