@@ -44,6 +44,8 @@ extern const TestCase test_alines;
 extern const TestCase test_hlines;
 extern const TestCase test_vlines;
 
+extern const TestCase test_resolution;
+
 extern const TestCase test_sqrt_libxt;
 extern const TestCase test_sqrt_turkowski;
 extern const TestCase test_sqrt_arm;

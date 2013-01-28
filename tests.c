@@ -16,6 +16,8 @@ static const TestCase *test_cases[] = {
     &test_hlines,
     &test_vlines,
     &separator,
+    &test_resolution,
+    &separator,
     &test_cube,
     &separator,
     &test_sqrt_libxt,

@@ -55,6 +55,8 @@ XtHerculesCard xt_hercules_card(void);
 
 typedef enum {
     XtHerculesMode_Text = 0,
+    XtHerculesMode_Text80x25 = 0,
+    XtHerculesMode_Text80x58,
     XtHerculesMode_Graphics,
 
     XtHerculesMode_Count

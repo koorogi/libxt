@@ -44,6 +44,7 @@ $(d)/tests.exe:    $(d)/libxt/xt.lib              \
                    tests/fixedpoint2.o            \
                    tests/helpers.o                \
                    tests/lines.o                  \
+                   tests/resolution.o             \
 
 $(d)/unittest.exe: $(d)/libxt/xt.lib              \
                    unittest/bitshift.o            \

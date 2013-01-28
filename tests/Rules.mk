@@ -16,6 +16,7 @@ OBJS_$(d)       := $(OBJS_ASM_$(d))               \
                    $(d)/lines.o                   \
                    $(d)/nop.o                     \
                    $(d)/quaternion.o              \
+                   $(d)/resolution.o              \
 
 DEPS_$(d)       := $(OBJS_$(d):%.o=%.d)
 LST_$(d)        := $(OBJS_ASM_$(d):%.o=%.lst)

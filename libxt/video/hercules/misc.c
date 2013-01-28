@@ -50,7 +50,7 @@ XtHerculesCard xt_hercules_card(void) {
 }
 
 static uint8_t crtc_mode_data[XtHerculesMode_Count][12] = {
-    [XtHerculesMode_Text] = {
+    [XtHerculesMode_Text80x25] = {
         [XtCrtc6854Reg_HorizTotal]      = 98 - 1,
         [XtCrtc6854Reg_HorizDisplayed]  = 80,      /* 80 chars * 9 pixels = 720 pixels */
         [XtCrtc6854Reg_HorizSyncPos]    = 83 - 1,
@@ -61,6 +61,21 @@ static uint8_t crtc_mode_data[XtHerculesMode_Count][12] = {
         [XtCrtc6854Reg_VertSyncPos]     = 26 - 1,
         [XtCrtc6854Reg_InterlaceSkew]   =  2,      /* TODO */
         [XtCrtc6854Reg_MaxRasterAddr]   = 14 - 1,  /* chars are 14 pixels tall */
+        [XtCrtc6854Reg_CursorStart]     = XT_CRTC6845_CURSOR_START(11, XT_CRTC6845_CURSOR_CONSTANT),
+        [XtCrtc6854Reg_CursorEnd]       = 12,
+    },
+
+    [XtHerculesMode_Text80x58] = {
+        [XtCrtc6854Reg_HorizTotal]      = 98 - 1,
+        [XtCrtc6854Reg_HorizDisplayed]  = 80,      /* 80 chars * 9 pixels = 720 pixels */
+        [XtCrtc6854Reg_HorizSyncPos]    = 83 - 1,
+        [XtCrtc6854Reg_SyncWidth]       = XT_CRTC6845_SYNC_WIDTH(15, 16),
+        [XtCrtc6854Reg_VertTotal]       = 61 - 1,
+        [XtCrtc6854Reg_VertTotalAdjust] =  4,
+        [XtCrtc6854Reg_VertDisplayed]   = 58,
+        [XtCrtc6854Reg_VertSyncPos]     = 59 - 1,
+        [XtCrtc6854Reg_InterlaceSkew]   =  2,      /* TODO */
+        [XtCrtc6854Reg_MaxRasterAddr]   =  6 - 1,  /* chars are 6 pixels tall */
         [XtCrtc6854Reg_CursorStart]     = XT_CRTC6845_CURSOR_START(11, XT_CRTC6845_CURSOR_CONSTANT),
         [XtCrtc6854Reg_CursorEnd]       = 12,
     },
@@ -84,7 +99,8 @@ static uint8_t crtc_mode_data[XtHerculesMode_Count][12] = {
 /* TODO: expand this to support 90 column text, and different text heights */
 void xt_hercules_mode_set(XtHerculesMode mode) {
     switch (mode) {
-    case XtHerculesMode_Text:
+    case XtHerculesMode_Text80x25:
+    case XtHerculesMode_Text80x58:
         modereg = XT_HERCULES_MODE_TEXT | XT_MDA_MODE_BLINK;
         break;
 
