@@ -7,9 +7,14 @@
 
 /* assumes 0 < x1 < x2 <= HGC_GRAPHICS_COLS, 0 <= y < HGC_GRAPHICS_ROWS */
 void xtintl_hercules_line_horiz(uint16_t bufseg, int y, int x1, int x2);
+void xtintl_hercules_line_vert (uint16_t bufseg, int y, int x1, int x2);
 
 static void line_horiz(uint16_t bufseg, int y, int x1, int x2) {
     xtintl_hercules_line_horiz(bufseg, y, x1, x2);
+}
+
+static void line_vert(uint16_t bufseg, int y, int x1, int x2) {
+    xtintl_hercules_line_vert(bufseg, y, x1, x2);
 }
 
 void xt_hercules_line_horiz(uint16_t bufseg, int x1, int x2, int y) {
@@ -27,15 +32,6 @@ void xt_hercules_line_horiz(uint16_t bufseg, int x1, int x2, int y) {
     }
 }
 
-static void line_vert(uint16_t bufseg, int x, int y1, int y2) {
-    XtHerculesFb buf = MK_FP(bufseg, x >> 3);
-    uint8_t      bit = 0x80 >> (x & 7);
-
-    for (; y1 <= y2; y1++) {
-        buf[xt_hercules_fb_row_offset[y1]] |= bit;
-    }
-}
-
 void xt_hercules_line_vert(uint16_t bufseg, int x, int y1, int y2) {
     if (x < 0 || x >= XT_HERCULES_GRAPHICS_COLS) {
         return;
@@ -47,7 +43,7 @@ void xt_hercules_line_vert(uint16_t bufseg, int x, int y1, int y2) {
     y1 = XT_CLIP(y1,  0, XT_HERCULES_GRAPHICS_ROWS);
     y2 = XT_CLIP(y2, -1, XT_HERCULES_GRAPHICS_ROWS - 1);
     if (y1 <= y2) {
-        line_vert(bufseg, x, y1, y2);
+        xtintl_hercules_line_vert(bufseg, x, y1, y2);
     }
 }
 

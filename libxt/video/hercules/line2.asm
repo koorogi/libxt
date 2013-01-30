@@ -86,6 +86,39 @@ done_hline:
     xpop    di
     ret
 
+    global xtintl_hercules_line_vert_
+    ; Internal helper for drawing a vertical line. Assumes all inputs are valid.
+    ; input : ax = framebuffer segment
+    ;         dx = x; bx = y1, cx = y2
+xtintl_hercules_line_vert_:
+    xpush   di
+
+    mov     es, ax
+    sub     cx, bx
+    inc     cx
+
+    mov     ax, dx
+    xshr    dx, 3
+    and     ax, 7
+    xor     ax, 7
+
+    mov     di, bx
+    mov     bx, skiptbl + 1
+    xlat
+    mov     bx, di
+    shl     bx, 1
+
+vert_loop:
+    mov     di, [_xt_hercules_fb_row_offset + bx]
+    add     di, dx
+    or      [es:di], al
+    inc     bx
+    inc     bx
+    loop    vert_loop
+
+    xpop    di
+    ret
+
     group   DGROUP DATA
     segment DATA
 
