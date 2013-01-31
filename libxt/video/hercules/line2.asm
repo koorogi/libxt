@@ -8,26 +8,25 @@
     global xtintl_hercules_line_horiz_
     ; Internal helper for drawing a horizontal line. Assumes all inputs are valid.
     ; input : ax = framebuffer segment
-    ;         dx = y; bx = x1, cx = x2
+    ;         bx = y; dx = x1, cx = x2
 xtintl_hercules_line_horiz_:
     xpush   di
 
     ; [es:di] row = MK_FP(bufseg, xt_hercules_fb_row_offset[y] + (x1 >> 3));
     mov     es, ax
 
-    mov     di, dx
-    shl     di, 1
-    mov     di, [_xt_hercules_fb_row_offset + di]
+    shl     bx, 1
+    mov     di, [_xt_hercules_fb_row_offset + bx]
 
-    mov     dx, bx
-    xshr    dx, 3
-    add     di, dx
+    mov     bx, dx
+    xshr    bx, 3
+    add     di, bx
 
     ; [cx] count = x2 - x1 + 1;
-    ; [bx] skip  = x1 & 7;
-    sub     cx, bx
+    ; [dx] skip  = x1 & 7;
+    sub     cx, dx
     inc     cx
-    and     bx, 7
+    and     dx, 7
 
     ; if (skip) {
     ;     int firstbyte = 8 - skip;
@@ -42,7 +41,7 @@ xtintl_hercules_line_horiz_:
     jz      skip_done
 
     mov     ax, 8
-    sub     ax, bx              ; ax = firstbyte
+    sub     ax, dx              ; ax = firstbyte
     mov     bx, skiptbl - 16    ; bx = skiptbl
 
     cmp     ax, cx

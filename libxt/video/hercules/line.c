@@ -9,6 +9,10 @@
 void xtintl_hercules_line_horiz(uint16_t bufseg, int y, int x1, int x2);
 void xtintl_hercules_line_vert (uint16_t bufseg, int y, int x1, int x2);
 
+#pragma aux xtintl_hercules_line_horiz  \
+    parm caller [ax] [bx] [dx] [cx]     \
+    modify [ax bx cx]
+
 static void line_horiz(uint16_t bufseg, int y, int x1, int x2) {
     xtintl_hercules_line_horiz(bufseg, y, x1, x2);
 }
