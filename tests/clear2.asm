@@ -1,10 +1,11 @@
-    [bits    16]
-    [section .text]
+%include "asm/stack.asm"
+
+    bits    16
+    segment code
 
     global hercules_fillscreen_asm_
 hercules_fillscreen_asm_:
-    push        cx          ; save registers
-    push        di
+    xpush       cx, di
 
     mov         es, ax      ; es:di = target address
     xor         di, di
@@ -27,6 +28,5 @@ hercules_fillscreen_asm_:
     mov         cx, 0x0f4b
     rep stosw
 
-    pop         di          ; restore registers
-    pop         cx
+    xpop        cx, di
     ret

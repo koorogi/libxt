@@ -1,4 +1,6 @@
-%include "macro.asm"
+%include "asm/bitshift.asm"
+%include "asm/stack.asm"
+%include "asm/math.asm"
 
     bits    16
     segment code

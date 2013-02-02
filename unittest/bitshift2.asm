@@ -1,4 +1,4 @@
-%include "macro.asm"
+%include "asm/bitshift.asm"
 
 %macro define_shift 1
     global asm_shl %+ %1 %+ _
@@ -28,8 +28,8 @@ asm_sar_bx %+ %1 %+ _:
 
 %endmacro
 
-    [bits 16]
-    [section .text]
+    bits    16
+    segment code
 
 define_shift  1
 define_shift  2

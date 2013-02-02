@@ -1,4 +1,5 @@
-%include "macro.asm"
+%include "asm/stack.asm"
+%include "asm/math.asm"
 
 ; calculate conjugate of quaternion at [ds:si] and store at [es:di]
 ; clobbers ax

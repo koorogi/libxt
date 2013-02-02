@@ -1,3 +1,5 @@
+%include "asm/stack.asm"
+
 ; calculate conjugate of quaternion at [ds:si] and store at [es:di]
 ; clobbers ax
 %macro  conjugate   0
@@ -10,16 +12,14 @@
     %endrep
 %endmacro
 
-    [bits    16]
-    [section .text]
+    bits    16
+    segment code
 
     global quat_conj_asm_
     ; input  = [sp+2]
     ; output = [ds:si]
 quat_conj_asm_:
-    push    dx
-    push    di
-    push    bp
+    xpush   dx, di, bp
     mov     bp, sp
 
     mov     ax, ds
@@ -28,7 +28,5 @@ quat_conj_asm_:
     lea     si, [bp+8]
     conjugate
 
-    pop     bp
-    pop     di
-    pop     dx
+    xpop    dx, di, bp
     ret     8

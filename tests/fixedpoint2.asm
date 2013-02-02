@@ -1,6 +1,7 @@
-%include "macro.asm"
+%include "asm/bitshift.asm"
+%include "asm/stack.asm"
 
-    [bits    16]
+    bits    16
     segment code
 
     global sqrt_turkowski_

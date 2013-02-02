@@ -1,4 +1,5 @@
-%include "macro.asm"
+%include "asm/bitshift.asm"
+%include "asm/stack.asm"
 
     bits    16
     segment _TEXT

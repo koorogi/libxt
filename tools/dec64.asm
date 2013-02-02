@@ -1,3 +1,5 @@
+%include "asm/dos.asm"
+
     bits    16
     org     0x0100
 
@@ -7,9 +9,6 @@
     %rotate 1
     %endrep
 %endmacro
-
-%define STDIN       0
-%define STDOUT      1
 
 %define BAD         0xff
 %define PADDING     '='
